@@ -614,17 +614,16 @@ module RestClient
     end
 
     def print_verify_callback_warnings
-      warned = false
       if RestClient::Platform.mac_mri?
         warn('warning: ssl_verify_callback return code is ignored on OS X')
-        warned = true
+        return true
       end
       if RestClient::Platform.jruby?
         warn('warning: SSL verify_callback may not work correctly in jruby')
         warn('see https://github.com/jruby/jruby/issues/597')
-        warned = true
+        return true
       end
-      warned
+      false
     end
 
     # Parse a method and return a normalized string version.
